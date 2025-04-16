@@ -1,0 +1,24 @@
+image:
+  file: .gitpod.Dockerfile  # 独自Dockerfileを使う（下で作成）
+
+# ワークスペース起動時に実行される処理
+tasks:
+  - name: Manim & LaTeX 環境構築
+    init: |
+      sudo apt update
+      sudo apt install -y \
+        ffmpeg \
+        texlive-latex-base \
+        texlive-latex-extra \
+        texlive-fonts-recommended \
+        texlive-latex-recommended \
+        pkg-config \
+        libcairo2-dev \
+        libpango1.0-dev \
+        python3-dev
+      pip install manim
+
+  - name: Git設定
+    init: |
+      git config --global user.name "Ruka"
+      git config --global user.email "kubotaruka3@gmail.com"
