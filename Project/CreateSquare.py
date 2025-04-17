@@ -2,7 +2,7 @@ from manim import *
 
 class CircleMove(Scene):
     def construct(self):
-        circle = Circle(color = BLUE)  # Mobject機能
+        circle = Circle(color = RED)  # Mobject機能
         circle.move_to([-2, 2, 0])     # Mobject機能
 
         animFirst = Create(circle)     # Animation機能
