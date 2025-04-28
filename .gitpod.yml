@@ -1,16 +1,6 @@
-# ワークスペース起動時に実行される処理
+image:
+  file: .gitpod.Dockerfile
+
 tasks:
-  - name: Manim & LaTeX 環境構築
-    init: |
-      sudo apt update
-      sudo apt install -y \
-        ffmpeg \
-        texlive-latex-base \
-        texlive-latex-extra \
-        texlive-fonts-recommended \
-        texlive-latex-recommended \
-        pkg-config \
-        libcairo2-dev \
-        libpango1.0-dev \
-        python3-dev
-      pip install manim
+  - name: Poetry Install
+    init: poetry install
