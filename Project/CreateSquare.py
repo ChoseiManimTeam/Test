@@ -1,18 +1,30 @@
 from manim import *
 
-class DoubleSquare(Scene):
+class MovingIntegralArea(Scene):
     def construct(self):
-        square1 = Square(color = BLUE)                # Mobject機能
-        square2 = Square(color = RED)                 # Mobject機能
-        circle = Circle(color = GREEN)                # Mobject機能
+        tracker = ValueTracker(0)
 
-        square1.move_to([2, 2, 0])                    # Mobject機能
-        square2.move_to([-2, 2, 0])                   # Mobject機能
+        plane = NumberPlane(
+            x_range=[-1, 6],
+            y_range=[-4, 16, 2],
+            x_length=12,
+            y_length=8
+        ).add_coordinates()
 
-        anim1 = square1.animate.move_to([-2, -2, 0])  # Animation機能
-        anim2 = square2.animate.move_to([2, -2, 0])   # Animation機能
-        animEnd = FadeOut(square1, square2)           # Animation機能
+        graph = plane.plot(lambda x: (x-2)*(x-2-2)*(x+2-2))
 
-        self.add(circle)                              # Scene機能
-        self.play(anim2)                       # Scene機能
-        self.play(animEnd)                            # Scene機能
+        def updater(mobject):
+            mobject.move_to(plane.i2gp(tracker.get_value(), graph))
+
+        dot = Dot()
+        dot.add_updater(updater)
+
+        area = always_redraw(lambda: plane.get_area(
+            graph,
+            x_range=(0, tracker.get_value()),
+            opacity=0.7))
+        
+
+        self.add(plane, graph, dot, area)
+        self.play(tracker.animate.set_value(5), run_time=4)
+        self.wait()
