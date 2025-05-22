@@ -2,5 +2,8 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - name: Poetry Install
-    init: poetry install
+  - name: Setup
+    init: |
+      poetry install || true  # poetry使ってるなら
+      pip install manim-slides PySide6 qtpy
+
